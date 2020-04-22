@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import traceback
-import sample  # TODO: "NAME"を追加したファイル名(.pyは不要)に置き換える
+import tyusyutu  # TODO: "NAME"を追加したファイル名(.pyは不要)に置き換える
 
 
 def read_file(file):
@@ -20,7 +20,7 @@ def main(args):
     for arg in args[1:]:
         try:
             html = read_file(arg)
-            for item in sample.kansu(html):  # TODO: "NAME.function"を追加した関数に置き換える
+            for item in tyusyutu.tyusyutu(html):  # TODO: "NAME.function"を追加した関数に置き換える
                 print("yield:", item)
         except Exception:
             # 例外を表示、次のファイルを処理
