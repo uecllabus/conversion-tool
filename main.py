@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
+import os.path
 import sys
 import traceback
-import tyusyutu
+
+from syllabus import Syllabus
+from tyusyutu import tyusyutu
 
 
 def read_file(file):
@@ -19,15 +22,21 @@ def main(args):
     status = 0
     for arg in args[1:]:
         try:
+            # 各科目を取得
+            syl = Syllabus()
             html = read_file(arg)
-            for item in tyusyutu.tyusyutu(html):
-                print("yield:", item)
+            for item in tyusyutu(html):
+                syl.add(item)
+
+            # JSONで保存
+            out = os.path.splitext(arg)[0] + ".json"
+            syl.save(out)
+            print(f"{arg}: converted as \"{out}\".")
         except Exception:
             # 例外を表示、次のファイルを処理
             traceback.print_exc()
             status = 1
-            print(arg, "cannot be converted.")
-
+            print(f"{arg}: failed to convert.")
     return status
 
 
